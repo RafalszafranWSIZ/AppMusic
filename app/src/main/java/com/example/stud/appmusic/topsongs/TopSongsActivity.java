@@ -45,8 +45,8 @@ public class TopSongsActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( this );
         rvList .setLayoutManager(linearLayoutManager);
-        LinearLayoutManager.setReverseLayout(true);
-        LinearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
 
         rvList.setLayoutManager(linearLayoutManager);
 
