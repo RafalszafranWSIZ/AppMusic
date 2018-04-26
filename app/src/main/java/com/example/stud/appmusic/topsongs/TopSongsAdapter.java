@@ -1,9 +1,11 @@
 package com.example.stud.appmusic.topsongs;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.stud.appmusic.R;
@@ -29,12 +31,24 @@ public class TopSongsAdapter extends RecyclerView.Adapter<TopSongsAdapter.TopSon
 
     @Override
     public void onBindViewHolder(TopSongsViewHolders holder, int position) {
-        TrendingSingle trendingSingle = trending.get(position);
+        final TrendingSingle trendingSingle = trending.get(position);
 
         holder.tvPlace.setText(String.valueOf(trendingSingle.intChartPlace));
         holder.tvTrack.setText(trendingSingle.strTrack);
         holder.tvArtist.setText(trendingSingle.strArtist);
         holder.tvAlbum.setText(trendingSingle.strAlbum);
+
+        holder.llContainer.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SongDetailsActivity. class );
+                intent.putExtra(SongDetailsActivity. TRACK , trendingSingle.strTrack );
+                intent.putExtra(SongDetailsActivity. ARTIST , trendingSingle.strArtist );
+                intent.putExtra(SongDetailsActivity. TRACK_ID , trendingSingle.idTrack );
+
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -43,7 +57,7 @@ public class TopSongsAdapter extends RecyclerView.Adapter<TopSongsAdapter.TopSon
     }
 
     public class TopSongsViewHolders extends RecyclerView.ViewHolder {
-
+        LinearLayout llContainer;
         TextView tvPlace;
         TextView tvTrack;
         TextView tvArtist;
@@ -52,6 +66,7 @@ public class TopSongsAdapter extends RecyclerView.Adapter<TopSongsAdapter.TopSon
         public TopSongsViewHolders(View itemView) {
             super(itemView);
 
+            llContainer = itemView.findViewById(R.id.llContainers);
             tvPlace = itemView.findViewById(R.id.tvPlace);
             tvTrack = itemView.findViewById(R.id.tvTrack);
             tvArtist = itemView.findViewById(R.id.tvArtist);
